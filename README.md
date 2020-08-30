@@ -1,6 +1,6 @@
 # Getir Case
 
-A sample REST API application which is built using Node.js and Express.js. The application has only one endpoint that connects to a MongoDB databse for fetching records.
+A sample REST API application which is built using Node.js and Express.js. The application has only one endpoint that connects to a MongoDB database for fetching records.
 
 The structure of the application is based on MVC pattern.
 
@@ -163,4 +163,4 @@ The template has an initial configuration section of EC2 instance which is calle
 aws cloudformation deploy --template-file .\cloud_formation_template.json --stack-name getir-case
 ```
 
-After the deployment, you can use **Public DNS (IPv4)** of newly created EC2 instance or **ApplicationURL** output of newly created CloudFormation stack as REST API URL.
+After the deployment, you can use **Public DNS (IPv4)** of newly created EC2 instance(with port :3000) or **ApplicationURL** output of newly created CloudFormation stack as REST API URL.
