@@ -1,0 +1,105 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+  "Description" : "Getir case rest api",
+  "Parameters" : {
+    "InstanceType" : {
+      "Description" : "EC2 Instance type",
+      "Type" : "String",
+      "Default" : "t2.micro",
+      "AllowedValues" : ["t2.micro"]
+    }
+  },
+  "Resources": {
+    "AppInstance" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+        "ImageId" : "ami-02354e95b39ca8dec",
+        "InstanceType" : {
+          "Ref" : "InstanceType"
+        },
+        "SecurityGroups" : [
+          {
+            "Ref" : "AppInstanceSecurityGroup"
+          }
+        ],
+        "UserData" : {
+          "Fn::Base64": {
+            "Fn::Join" : [
+              "",
+              [
+                "#!/bin/bash\n",
+                "yum update -y\n",
+                "sudo su\n",
+                "curl --silent --location https://rpm.nodesource.com/setup_12.x | bash -\n",
+                "yum install -y nodejs\n",
+                "echo 'NodeJS Installed'\n",
+                "yum install git -y\n",
+                "echo 'Git Installed'\n",
+                "mkdir -p /home/ec2-user/public\n",
+                "git clone https://github.com/sayarumut/getir-case.git /home/ec2-user/public\n",
+                "echo 'Repository Cloned'\n",
+                "npm install --prefix /home/ec2-user/public\n",
+                "echo 'NPM Dependencies Installed'\n",
+                "cat > /home/ec2-user/public/.env <<END\n",
+                "PORT=3000\n",
+                "DB_URI=mongodb://localhost:27017\n",
+                "DB_NAME=getir-case-study\n",
+                "NODE_ENV=production\n",
+                "END\n",
+                "echo '.env File Created'\n",
+                "nohup node /home/ec2-user/public/start.js &\n",
+                "echo 'App Started'\n"
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "AppInstanceSecurityGroup" : {
+      "Type" : "AWS::EC2::SecurityGroup",
+      "Properties" : {
+        "GroupDescription" : "Enable MongoDB & NodeJS server ports",
+        "SecurityGroupIngress" : [
+          {
+            "IpProtocol" : "tcp",
+            "FromPort" : "27017",
+            "ToPort" : "27017",
+            "CidrIp" : "0.0.0.0/0"
+          },
+          {
+            "IpProtocol" : "tcp",
+            "FromPort" : "3000",
+            "ToPort" : "3000",
+            "CidrIp" : "0.0.0.0/0"
+          },
+          {
+            "IpProtocol" : "tcp",
+            "FromPort" : "22",
+            "ToPort" : "22",
+            "CidrIp" : "0.0.0.0/0"
+          }
+        ]
+      }
+    }
+  },
+  "Outputs" : {
+    "ApplicationURL" : {
+      "Description" : "URL of application",
+      "Value" : {
+        "Fn::Join" : [
+          "",
+          [
+            "http://",
+            {
+              "Fn::GetAtt":[
+                "AppInstance",
+                "PublicDnsName"
+              ]
+            },
+            ":3000"
+          ]
+        ]
+      }
+    }
+  }
+}
