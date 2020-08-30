@@ -107,38 +107,42 @@ node start.js
 
 ## Test
 
-The commands listed below can be used to run the tests which are written using [Jest](https://www.npmjs.com/package/jest)
+The command below can be used to run the tests which are written using [Jest](https://www.npmjs.com/package/jest)
 
 ```shell
 npm test -- -u
-npm test -- --coverage
 ```
 
 **Coverage**
 
 ```
 -------------------------|---------|----------|---------|---------|-------------------
-File                     | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+File                     | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 -------------------------|---------|----------|---------|---------|-------------------
-All files                |   66.67 |       50 |      44 |   70.33 |                   
- Code                    |   38.78 |        0 |    12.5 |   43.18 |                   
-  app.js                 |     100 |      100 |     100 |     100 |                   
-  init-db-connection.js  |      60 |      100 |      20 |   85.71 | 9                 
-  start.js               |       0 |        0 |       0 |       0 | 1-39              
- Code/controller         |   88.89 |    83.33 |     100 |   88.89 |                   
-  record-controller.js   |   88.89 |    83.33 |     100 |   88.89 | 36-37
+All files                |   70.53 |       60 |      48 |   74.44 | 
+ Code                    |   41.67 |        0 |   18.75 |   46.51 | 
+  app.js                 |     100 |      100 |     100 |     100 | 
+  init-db-connection.js  |      70 |      100 |      40 |     100 | 
+  start.js               |       0 |        0 |       0 |       0 | 1-35
+ Code/controller         |     100 |      100 |     100 |     100 | 
+  record-controller.js   |     100 |      100 |     100 |     100 | 
  Code/helper             |     100 |      100 |     100 |     100 | 
   api-response-helper.js |     100 |      100 |     100 |     100 | 
  Code/model              |     100 |      100 |     100 |     100 | 
+  record-model.js        |     100 |      100 |     100 |     100 | 
  Code/route              |     100 |      100 |     100 |     100 | 
   record-router.js       |     100 |      100 |     100 |     100 | 
  Code/service            |     100 |      100 |     100 |     100 | 
   record-service.js      |     100 |      100 |     100 |     100 | 
  Code/validator          |     100 |      100 |     100 |     100 | 
+  record-validator.js    |     100 |      100 |     100 |     100 | 
 -------------------------|---------|----------|---------|---------|-------------------
 
-Test Suites: 5 passed, 5 total
-Tests:       7 passed, 7 total
+Test Suites: 6 passed, 6 total
+Tests:       10 passed, 10 total
+Snapshots:   0 total
+Time:        6.326 s
+Ran all test suites.
 ```
 
 ## Deployment

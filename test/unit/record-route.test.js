@@ -1,6 +1,6 @@
 const mockingoose = require('mockingoose').default;
 const model = require('../../model/record-model');
-var app = require('../../app');
+const app = require('../../app');
 const supertest = require('supertest');
 const request = supertest(app);
 
