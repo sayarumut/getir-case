@@ -7,7 +7,7 @@ The structure of the application is based on MVC pattern.
 ## Test URL
 
 ```
-
+http://ec2-54-160-116-197.compute-1.amazonaws.com:3000
 ```
 
 ## Prerequisites
