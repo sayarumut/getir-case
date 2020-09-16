@@ -18,7 +18,8 @@
         "coveragePathIgnorePatterns": [
             "/node_modules/",
             "/coverage/"
-        ]
+        ],
+        "roots": ["test/"]
     },
     "dependencies": {
         "axios": "^0.20.0",
